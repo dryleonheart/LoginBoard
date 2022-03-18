@@ -1,0 +1,46 @@
+package com.board.loginboard.domain;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.util.Assert;
+
+import javax.persistence.*;
+
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
+@Table(name = "board")
+public class Board extends Base{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 20, nullable = false)
+    private String owner;
+
+    @Column(length = 100, nullable = false)
+    private String title;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String content;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Account account;
+
+    @Builder
+    public Board(Long id, String title, String content, String owner, Account account){
+        Assert.hasText(owner, "owner is empty");
+        Assert.hasText(title, "title is empty");
+        Assert.hasText(content, "content is empty");
+
+        this.id = id;
+        this.owner = owner;
+        this.title = title;
+        this.content = content;
+        this.account = account;
+    }
+
+}

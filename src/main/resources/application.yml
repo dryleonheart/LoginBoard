@@ -9,9 +9,8 @@ spring:
   jpa :
     database : mysql
     database-platform : org.hibernate.dialect.MySQL8Dialect
-    shoq-sql : true
+    show-sql : true
     hibernate:
-      format_sql : true
       ddl-auto : create
   mvc:
     hiddenmethod:
@@ -23,10 +22,5 @@ spring:
   batch :
     jdbc :
       initialize-schema : never
-  logging:
-    level:
-      org:
-        hibernate:
-          SQL: DEBUG
 server :
   port : 8989
