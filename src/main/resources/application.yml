@@ -1,0 +1,32 @@
+spring:
+  application:
+    name : loginBoard
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url : jdbc:mysql://localhost:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username : root
+    password : terry7414
+  jpa :
+    database : mysql
+    database-platform : org.hibernate.dialect.MySQL8Dialect
+    shoq-sql : true
+    hibernate:
+      format_sql : true
+      ddl-auto : create
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  session:
+    jdbc:
+      initialize-schema : always
+  batch :
+    jdbc :
+      initialize-schema : never
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
+server :
+  port : 8989
