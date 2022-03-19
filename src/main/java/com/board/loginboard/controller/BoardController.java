@@ -2,20 +2,16 @@ package com.board.loginboard.controller;
 
 import com.board.loginboard.dto.BoardDto;
 import com.board.loginboard.service.BoardService;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/board")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin("http://localhost:3000")
 public class BoardController {
 
     @Autowired
@@ -26,12 +22,17 @@ public class BoardController {
         return boardService.searchBySearchWord(searchWord);
     }
 
-    @GetMapping({"","/list"})
+    @GetMapping("")
+    public List<BoardDto> fullList(){
+        return boardService.getBoardList();
+    }
+
+    @GetMapping("/list")
     public List<BoardDto> list(@RequestParam(value="page", defaultValue = "1") int pageNum){
         return boardService.getBoardListByPage(pageNum);
     }
 
-    @GetMapping({"","/pageList"})
+    @GetMapping("/pageList")
     public List<Integer> pageList(@RequestParam(value="page", defaultValue = "1") int pageNum){
         return boardService.getPageList(pageNum);
     }

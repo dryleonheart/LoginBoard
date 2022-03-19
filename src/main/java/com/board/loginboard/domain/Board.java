@@ -27,11 +27,9 @@ public class Board extends Base{
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Account account;
 
     @Builder
-    public Board(Long id, String title, String content, String owner, Account account){
+    public Board(Long id, String title, String content, String owner){
         Assert.hasText(owner, "owner is empty");
         Assert.hasText(title, "title is empty");
         Assert.hasText(content, "content is empty");
@@ -40,7 +38,6 @@ public class Board extends Base{
         this.owner = owner;
         this.title = title;
         this.content = content;
-        this.account = account;
     }
 
 }

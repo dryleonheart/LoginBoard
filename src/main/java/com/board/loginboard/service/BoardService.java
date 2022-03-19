@@ -4,6 +4,7 @@ import com.board.loginboard.domain.Board;
 import com.board.loginboard.dto.BoardDto;
 import com.board.loginboard.repository.BoardRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class BoardService {
+    @Autowired
     private BoardRepository boardRepository;
 
     private static final int POST_PER_PAGE = 10;
@@ -45,6 +47,20 @@ public class BoardService {
             }
         }
 
+        return boardDtoList;
+    }
+
+    @Transactional
+    public List<BoardDto> getBoardList(){
+        List<Board> boardList = boardRepository.findAll();
+
+        List<BoardDto> boardDtoList = new ArrayList<>();
+
+        if(!boardList.isEmpty()){
+            for(Board board : boardList){
+                boardDtoList.add(this.convertEntityToDto(board));
+            }
+        }
         return boardDtoList;
     }
 

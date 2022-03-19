@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,6 +30,18 @@ public class AccountService {
     }
 
     @Transactional
+    public List<AccountDto> getAccountList(){
+        List<Account> accounts = accountRepository.findAll();
+
+        List<AccountDto> accountDtoList = new ArrayList<>();
+        for(Account account : accounts){
+            accountDtoList.add(this.convertEntityToDto(account));
+        }
+
+        return accountDtoList;
+    }
+
+    @Transactional
     public Boolean login(AccountDto accountDto){
         Optional<Account> accountWrap = accountRepository.findByAccountId(accountDto.getAccountId());
         if(accountWrap.isPresent()){
@@ -39,6 +53,16 @@ public class AccountService {
         }
         return Boolean.FALSE;
     }
+
+    @Transactional
+    public AccountDto getAccountById(String id){
+        Optional<Account> accountWrap = accountRepository.findByAccountId(id);
+        if(accountWrap.isPresent()){
+            return this.convertEntityToDto(accountWrap.get());
+        }
+        return new AccountDto();
+    }
+
 
     @Transactional
     public Boolean checkAccountId(AccountDto accountDto){
