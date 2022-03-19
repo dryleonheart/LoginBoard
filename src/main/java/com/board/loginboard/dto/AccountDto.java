@@ -23,17 +23,18 @@ public class AccountDto {
     public Account toEntity(){
         return Account
                 .builder()
-                .id(id)
                 .accountId(accountId)
                 .accountPw(accountPw)
+                .role(role)
                 .build();
     }
 
     @Builder
-    public AccountDto(Long id, String accountId,  String accountPw, LocalDateTime createdDate, LocalDateTime modifiedDate){
-        this.id= id;
+    public AccountDto(String accountId,  String accountPw, Role role, LocalDateTime createdDate, LocalDateTime modifiedDate){
+
         this.accountId = accountId;
         this.accountPw = accountPw;
+        this.role = role;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
     }

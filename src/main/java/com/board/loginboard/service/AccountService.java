@@ -19,9 +19,9 @@ public class AccountService {
     private AccountDto convertEntityToDto(Account account){
         return AccountDto
                 .builder()
-                .id(account.getId())
                 .accountId(account.getAccountId())
                 .accountPw(account.getAccountPw())
+                .role(account.getRole())
                 .createdDate(account.getCreatedDate())
                 .modifiedDate(account.getModifiedDate())
                 .build();

@@ -29,16 +29,14 @@ public class Account extends Base {
     private Role role;
 
     @Builder
-    public Account(Long id, String accountId, String accountPw, Role role){
-        Assert.hasText(accountId, "accountId is Empty");
-        Assert.hasText(accountPw, "accountPw is Empty");
+    public Account(String accountId, String accountPw, Role role){
+        Assert.hasText(accountId, "accountId is empty");
+        Assert.hasText(accountPw, "(accountPw is empty");
 
-        this.id = id;
         this.accountId = accountId;
         this.accountPw = accountPw;
         this.role = role;
     }
-
     public String getRoleKey(){
         return this.role.getKey();
     }

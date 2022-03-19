@@ -68,15 +68,15 @@ public class BoardService {
         return boardRepository.count();
     }
 
-    public int[] getPageList(int pageNum){
-        int[] pageList = new int[POST_PER_PAGE];
+    public List<Integer> getPageList(int pageNum){
+        List<Integer> pageList = new ArrayList<>();
 
         int lastPageNum = (int)(Math.ceil( ( Double.valueOf(this.getBoardCount())/POST_PER_PAGE ) ) );
         int blockLastPageNum = Math.min(lastPageNum, pageNum + PAGE_PER_BLOCK);
 
         int startPage = (pageNum <= 3) ? 1 : pageNum-2;
-        for(int k = startPage, i = 0; k <= blockLastPageNum; k++, i++){
-            pageList[i] = k;
+        for(int k = startPage; k <= blockLastPageNum; k++){
+            pageList.add(k);
         }
         return pageList;
     }
