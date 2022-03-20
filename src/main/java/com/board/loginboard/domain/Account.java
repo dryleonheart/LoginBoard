@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "account")
+@Table(name = "account")            //ID와 PW 역할만 있는 기본적인 계정구조
 public class Account extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

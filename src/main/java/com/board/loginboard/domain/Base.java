@@ -11,6 +11,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
+//모든 테이블에 기본적으로 들어갈 생성, 수정 시간
 @Getter
 @MappedSuperclass
 @EntityListeners(value = {AuditingEntityListener.class})

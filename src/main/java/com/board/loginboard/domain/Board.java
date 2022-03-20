@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "board")
+@Table(name = "board")      //제목, 내용, 작성자만 있는 가장 기본적인 구조
 public class Board extends Base{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,7 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +17,7 @@ import java.util.Collection;
 @Setter
 @ToString
 @NoArgsConstructor
-public class AccountDto implements UserDetails {
+public class AccountDto implements UserDetails {     // 계정Dto 임과 동시에 Spring Security 이용을 위한 UserDetails 상속
     private Long id;
     private String accountId;
     private String accountPw;
@@ -42,6 +41,7 @@ public class AccountDto implements UserDetails {
         return auth;
     }
 
+    // 인증시에 필요한 Password, Username 정보 대응되는 값으로 return 하도록 Override
     @Override
     public String getPassword() {
         return accountPw;
@@ -52,6 +52,7 @@ public class AccountDto implements UserDetails {
         return accountId;
     }
 
+    //계정 유효성 처리 -> 일단은 True로 통일하고 필요에 따라 Table에 정보 추가및 기능 정의 가능
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isAccountNonExpired() {

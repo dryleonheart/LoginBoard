@@ -84,17 +84,8 @@ public class BoardService {
         return boardRepository.count();
     }
 
-    public List<Integer> getPageList(int pageNum){
-        List<Integer> pageList = new ArrayList<>();
-
-        int lastPageNum = (int)(Math.ceil( ( Double.valueOf(this.getBoardCount())/POST_PER_PAGE ) ) );
-        int blockLastPageNum = Math.min(lastPageNum, pageNum + PAGE_PER_BLOCK);
-
-        int startPage = (pageNum <= 3) ? 1 : pageNum-2;
-        for(int k = startPage; k <= blockLastPageNum; k++){
-            pageList.add(k);
-        }
-        return pageList;
+    public int getPageList(int pageNum){
+        return (int)(Math.ceil( ( Double.valueOf(this.getBoardCount())/POST_PER_PAGE ) ) );
     }
 
     @Transactional
@@ -107,7 +98,7 @@ public class BoardService {
     }
 
     @Transactional
-    public Long save(BoardDto boardDto){
+    public Long save(BoardDto boardDto) throws Exception{
         return boardRepository.save(boardDto.toEntity()).getId();
     }
 

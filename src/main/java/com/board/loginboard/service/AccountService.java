@@ -1,13 +1,16 @@
 package com.board.loginboard.service;
 
 import com.board.loginboard.domain.Account;
-import com.board.loginboard.domain.Board;
 import com.board.loginboard.dto.AccountDto;
-import com.board.loginboard.dto.BoardDto;
+import com.board.loginboard.dto.SignDto;
 import com.board.loginboard.repository.AccountRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ public class AccountService {
                 .build();
     }
 
+    // 회원 조회 기능
     @Transactional
     public List<AccountDto> getAccountList(){
         List<Account> accounts = accountRepository.findAll();
@@ -42,19 +46,6 @@ public class AccountService {
     }
 
     @Transactional
-    public Boolean login(AccountDto accountDto){
-        Optional<Account> accountWrap = accountRepository.findByAccountId(accountDto.getAccountId());
-        if(accountWrap.isPresent()){
-            Account account = accountWrap.get();
-
-            if(account.getAccountPw().equals(accountDto.getAccountPw())){
-                return Boolean.TRUE;
-            }
-        }
-        return Boolean.FALSE;
-    }
-
-    @Transactional
     public AccountDto getAccountById(String id){
         Optional<Account> accountWrap = accountRepository.findByAccountId(id);
         if(accountWrap.isPresent()){
@@ -64,6 +55,7 @@ public class AccountService {
     }
 
 
+    //아이디 중복 검사
     @Transactional
     public Boolean checkAccountId(AccountDto accountDto){
         Optional<Account> accountWrap = accountRepository.findByAccountId(accountDto.getAccountId());
@@ -74,6 +66,7 @@ public class AccountService {
 
         return Boolean.FALSE;
     }
+
 
     @Transactional
     public Long save(AccountDto accountDto){
